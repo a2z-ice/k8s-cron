@@ -1,0 +1,18 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-test
+  namespace: test-env
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron-test
+            image: 203.188.245.212:7800/cron-test
+            command:
+            - ./cron-run.sh
+            imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure
